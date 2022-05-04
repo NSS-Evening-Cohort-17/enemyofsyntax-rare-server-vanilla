@@ -1,7 +1,7 @@
 from email.utils import parsedate
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import get_all_posts
+from views import get_all_posts, get_single_post
 
 from views.user import create_user, login_user
 
