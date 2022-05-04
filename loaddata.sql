@@ -39,7 +39,7 @@ CREATE TABLE "Posts" (
   "image_url" varchar,
   "content" varchar,
   "approved" bit,
-  FOREIGN KEY(`user_id`) REFERENCES `Users`(`id`),
+  FOREIGN KEY(`user_id`) REFERENCES `Users`(`id`)
 );
 
 CREATE TABLE "Comments" (
@@ -86,5 +86,11 @@ CREATE TABLE "Categories" (
 );
 
 INSERT INTO Categories ('label') VALUES ('News');
+INSERT INTO Categories ('label') VALUES ('Entertainment');
+INSERT INTO Categories ('label') VALUES ('World');
 INSERT INTO Tags ('label') VALUES ('JavaScript');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
+INSERT INTO Users ('first_name', 'last_name', 'email','username','password')
+VALUES ('Test', 'User', 'testuser@email.com','testuser', 'testuser');
+INSERT INTO  Posts ('user_id',  'category_id' ,  'title' ,  'publication_date' ,  'image_url' ,  'content' ,  'approved' )
+values(1,  1 ,  'Ukraine' ,  '12-14-2021' ,  'www.cnn.com' ,  'International help on the way' ,  1 );
