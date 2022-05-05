@@ -2,7 +2,7 @@ from email.utils import parsedate
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views import get_all_posts, get_single_post
-from views.post_requests import create_post
+from views.post_requests import create_post, delete_post
 
 from views.user import create_user, login_user
 
@@ -93,8 +93,14 @@ class HandleRequests(BaseHTTPRequestHandler):
         pass
 
     def do_DELETE(self):
-        """Handle DELETE Requests"""
-        pass
+        self._set_headers(204)
+        
+        (resource, id) = self.parse_url(self.path)
+        
+        if resource == "posts":
+            delete_post(id)
+        
+        self.wfile.write("".encode())
 
 
 def main():
