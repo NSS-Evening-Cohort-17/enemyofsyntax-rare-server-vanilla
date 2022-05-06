@@ -1,7 +1,7 @@
 from email.utils import parsedate
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import get_all_posts, get_single_post
+from views import get_all_posts, get_single_post, get_all_categories
 from views.post_requests import create_post, delete_post
 
 from views.user import create_user, login_user
@@ -53,20 +53,19 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        self._set_headers(200)
-        
-        response = {}
-        
+        self._set_headers(200)        
+        response = {}        
         parsed = self.parse_url(self.path)
-        
+        print(self.path)        
         if len(parsed) == 2:
-            ( resource, id ) = parsed
-        
+            ( resource, id ) = parsed        
         if resource == "posts":
             if id is not None:
                 response = f"{get_single_post(id)}"
             else:
                 response = f"{get_all_posts()}"
+        elif resource == "categories":
+            response = get_all_categories()
         
         self.wfile.write(response.encode())
 

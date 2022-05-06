@@ -98,4 +98,4 @@ INSERT INTO  Posts ('user_id',  'category_id' ,  'title' ,  'publication_date' ,
 values(2,  2 ,  'Nashville' ,  '12-14-2022' ,  'www.foxnews.com' ,  'Music festival approaching' ,  1 );
 INSERT INTO  Posts ('user_id',  'category_id' ,  'title' ,  'publication_date' ,  'image_url' ,  'content' ,  'approved' )
 values(3,  3 ,  'New York' ,  '12-14-2022' ,  'www.nytimes.com' ,  'Business week' ,  1 )
-
+SELECT a.id, a.label FROM categories a
