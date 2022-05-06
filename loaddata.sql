@@ -94,3 +94,8 @@ INSERT INTO Users ('first_name', 'last_name', 'email','username','password')
 VALUES ('Test', 'User', 'testuser@email.com','testuser', 'testuser');
 INSERT INTO  Posts ('user_id',  'category_id' ,  'title' ,  'publication_date' ,  'image_url' ,  'content' ,  'approved' )
 values(1,  1 ,  'Ukraine' ,  '12-14-2021' ,  'www.cnn.com' ,  'International help on the way' ,  1 );
+INSERT INTO  Posts ('user_id',  'category_id' ,  'title' ,  'publication_date' ,  'image_url' ,  'content' ,  'approved' )
+values(2,  2 ,  'Nashville' ,  '12-14-2022' ,  'www.foxnews.com' ,  'Music festival approaching' ,  1 );
+INSERT INTO  Posts ('user_id',  'category_id' ,  'title' ,  'publication_date' ,  'image_url' ,  'content' ,  'approved' )
+values(3,  3 ,  'New York' ,  '12-14-2022' ,  'www.nytimes.com' ,  'Business week' ,  1 )
+
