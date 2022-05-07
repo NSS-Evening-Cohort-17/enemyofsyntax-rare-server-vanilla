@@ -2,7 +2,7 @@ from email.utils import parsedate
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 from views import get_all_posts, get_single_post, get_all_categories
-from views.post_requests import create_post, delete_post
+from views.post_requests import create_post, delete_post, get_posts_by_user_id, update_post
 
 from views.user import create_user, login_user
 
@@ -14,6 +14,7 @@ class HandleRequests(BaseHTTPRequestHandler):
         """Parse the url into the resource and id"""
         path_params = path.split('/')
         resource = path_params[1]
+        
         if '?' in resource:
             param = resource.split('?')[1]
             resource = resource.split('?')[0]
@@ -53,20 +54,27 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.end_headers()
 
     def do_GET(self):
-        self._set_headers(200)        
-        response = {}        
-        parsed = self.parse_url(self.path)
-        print(self.path)        
-        if len(parsed) == 2:
-            ( resource, id ) = parsed        
-        if resource == "posts":
-            if id is not None:
-                response = f"{get_single_post(id)}"
-            else:
-                response = f"{get_all_posts()}"
-        elif resource == "categories":
-            response = get_all_categories()
+        self._set_headers(200)
         
+        response = {}
+        
+        parsed = self.parse_url(self.path)
+        
+        if len(parsed) == 2:
+            ( resource, id ) = parsed
+            
+            if resource == "posts":
+                if id is not None:
+                    response = f"{get_single_post(id)}"
+                else:
+                    response = f"{get_all_posts()}"
+        
+        elif len(parsed) ==3:
+            ( resource, key, value ) = parsed
+            
+            if key == "user_id" and resource == "posts":
+                response = get_posts_by_user_id(value)
+                
         self.wfile.write(response.encode())
 
 
@@ -88,8 +96,27 @@ class HandleRequests(BaseHTTPRequestHandler):
         self.wfile.write(response.encode())
 
     def do_PUT(self):
-        """Handles PUT requests to the server"""
-        pass
+        self._set_headers(204)
+        content_len = int(self.headers.get('content-length', 0))
+        post_body = self.rfile.read(content_len)
+        post_body = json.loads(post_body)
+        
+        (resource, id) = self.parse_url(self.path)
+        
+        success = False
+        
+        if resource == "posts":
+            success = update_post(id, post_body)
+            
+        if resource == "posts":
+            update_post(id, post_body)
+            
+        if success:
+            self._set_headers(204)
+        else:
+            self._set_headers(404)
+        
+        self.wfile.write("".encode())
 
     def do_DELETE(self):
         self._set_headers(204)
