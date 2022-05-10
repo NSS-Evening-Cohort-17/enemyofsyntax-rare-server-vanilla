@@ -68,6 +68,8 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_single_post(id)}"
                 else:
                     response = f"{get_all_posts()}"
+            elif resource == "categories":
+                response = get_all_categories()
         
         elif len(parsed) ==3:
             ( resource, key, value ) = parsed
