@@ -1,8 +1,9 @@
 from email.utils import parsedate
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-from views import get_all_posts, get_single_post, get_all_categories
+from views import get_all_posts, get_single_post, get_all_categories, get_all_tags, get_single_tag
 from views.post_requests import create_post, delete_post, get_posts_by_user_id, update_post
+from views.tag_requests import create_tag
 
 from views.user import create_user, login_user
 
@@ -70,6 +71,9 @@ class HandleRequests(BaseHTTPRequestHandler):
                     response = f"{get_all_posts()}"
             elif resource == "categories":
                 response = get_all_categories()
+                
+            if resource == "tags":
+                    response = get_all_tags()
         
         elif len(parsed) ==3:
             ( resource, key, value ) = parsed
@@ -94,6 +98,8 @@ class HandleRequests(BaseHTTPRequestHandler):
             response = create_user(post_body)
         if resource == 'posts':
             response == create_post(post_body)
+        if resource == 'tags':
+            response = create_tag(post_body)
 
         self.wfile.write(response.encode())
 
