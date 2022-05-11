@@ -88,7 +88,7 @@ CREATE TABLE "Categories" (
 INSERT INTO Categories ('label') VALUES ('News');
 INSERT INTO Categories ('label') VALUES ('Entertainment');
 INSERT INTO Categories ('label') VALUES ('World');
-INSERT INTO Tags ('label') VALUES ('JavaScript');
+INSERT INTO Tags ('label') VALUES ('Test-Tag1');
 INSERT INTO Reactions ('label', 'image_url') VALUES ('happy', 'https://pngtree.com/so/happy');
 INSERT INTO Users ('first_name', 'last_name', 'email','username','password')
 VALUES ('Test', 'User', 'testuser@email.com','testuser', 'testuser');
@@ -99,6 +99,7 @@ values(2,  2 ,  'Nashville' ,  '12-14-2022' ,  'www.foxnews.com' ,  'Music festi
 INSERT INTO  Posts ('user_id',  'category_id' ,  'title' ,  'publication_date' ,  'image_url' ,  'content' ,  'approved' )
 values(3,  3 ,  'New York' ,  '12-14-2022' ,  'www.nytimes.com' ,  'Business week' ,  1 )
 SELECT a.id, a.label FROM categories a
+SELECT t.id, t.label FROM tags t
 
 update posts set title = 'Memphis' where id=1
 select * from Posts
